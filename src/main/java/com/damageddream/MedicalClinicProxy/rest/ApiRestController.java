@@ -40,6 +40,7 @@ public class ApiRestController {
     }
 
     @PostMapping("/appointments")
+    @ResponseStatus(HttpStatus.CREATED)
     public AppointmentDTO addAppointment(@RequestBody AppointmentDTO appointment,
                                          @RequestParam("doctorId") Long doctorId) {
         return apiService.addAppointment(appointment, doctorId);
