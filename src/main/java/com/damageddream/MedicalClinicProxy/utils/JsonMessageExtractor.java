@@ -8,10 +8,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JsonMessageExtractor {
-    private static final Pattern jsonPattern = Pattern.compile("\\[\\{.*?\\}\\]");
+    private static final Pattern JSON_PATTERN = Pattern.compile("\\[\\{.*?\\}\\]");
 
     public static String extractMessage(String errorBody) {
-        Matcher matcher = jsonPattern.matcher(errorBody);
+        Matcher matcher = JSON_PATTERN.matcher(errorBody);
         if (matcher.find()) {
             String jsonPart = matcher.group(0);
             try {
