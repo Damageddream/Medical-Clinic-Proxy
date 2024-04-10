@@ -9,10 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//nazwac z myslnikami
-//dodac volumy do pgadmina
-@FeignClient(name = "MedicalClinicClient",
-        url = "${feign.client.MedicalClinicClient.url}",
+@FeignClient(name = "Medical-Clinic-Client",
+        url = "${feign.client.Medical-Clinic-Client.url}",
         configuration = ClientConfiguration.class
 )
 public interface MedicalClinicClient {

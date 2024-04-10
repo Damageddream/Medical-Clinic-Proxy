@@ -1,0 +1,48 @@
+services:
+  db:
+    image: postgres:alpine3.19
+    restart: always
+    environment:
+      - POSTGRES_USER=sa
+      - POSTGRES_PASSWORD=sa1234
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'marcan@mail.com'
+      PGADMIN_DEFAULT_PASSWORD: "sa1234"
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db
+
+  medical-clinic:
+    image: medical-clinic:0.0.1
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=sa
+      - SPRING_DATASOURCE_PASSWORD=sa1234
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  medical-clinic-proxy:
+    image: medical-clinic-proxy:0.0.1
+    environment:
+      - FEIGN_CLIENT_MEDICAL-CLINIC-CLIENT_URL=http://medical-clinic:8080
+    ports:
+      - "8090:8090"
+
+volumes:
+  db:
+    driver: local
+  pgadmin_data:
+    driver: local
