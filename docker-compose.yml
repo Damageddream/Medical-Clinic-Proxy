@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     image: postgres:alpine3.19
@@ -10,6 +12,18 @@ services:
       - '5432:5432'
     volumes:
       - db:/var/lib/postgresql/data
+
+  mongo_db:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: sa
+      MONGO_INITDB_ROOT_PASSWORD: sa1234
+      MONGO_INITDB_DATABASE: medical_db
+    ports:
+      - '27017:27017'
+    volumes:
+      - db:/data/db
 
   pgadmin:
     image: dpage/pgadmin4
@@ -38,11 +52,16 @@ services:
     image: medical-clinic-proxy:0.0.1
     environment:
       - FEIGN_CLIENT_MEDICAL-CLINIC-CLIENT_URL=http://medical-clinic:8080
+      - SPRING_DATA_MONGODB_URI=mongodb://sa:sa1234@mongo_db:27017
     ports:
       - "8090:8090"
+    depends_on:
+      - mongo_db
 
 volumes:
   db:
     driver: local
   pgadmin_data:
+    driver: local
+  mongo_db:
     driver: local
