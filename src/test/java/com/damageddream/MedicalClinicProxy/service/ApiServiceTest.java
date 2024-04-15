@@ -5,6 +5,8 @@ import com.damageddream.MedicalClinicProxy.dto.GetIdCommand;
 import com.damageddream.MedicalClinicProxy.dto.NewPatientDTO;
 import com.damageddream.MedicalClinicProxy.dto.PatientDTO;
 import com.damageddream.MedicalClinicProxy.remote.MedicalClinicClient;
+import com.damageddream.MedicalClinicProxy.repository.PatientDTOCacheRepository;
+import com.damageddream.MedicalClinicProxy.repository.PatientDTOListCacheRepo;
 import com.damageddream.MedicalClinicProxy.utils.TestDataFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,11 +22,14 @@ import java.util.Optional;
 public class ApiServiceTest {
     private MedicalClinicClient medicalClinicClient;
     private ApiService apiService;
+    private PatientDTOCacheRepository patientDTOCacheRepository;
+    private PatientDTOListCacheRepo patientDTOListCacheRepo;
 
     @BeforeEach
     void setup() {
         this.medicalClinicClient = Mockito.mock(MedicalClinicClient.class);
-        this.apiService = new ApiServiceImpl(medicalClinicClient);
+        this.apiService = new ApiServiceImpl(medicalClinicClient,
+                patientDTOCacheRepository, patientDTOListCacheRepo);
     }
 
     @Test
