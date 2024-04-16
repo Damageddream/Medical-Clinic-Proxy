@@ -1,15 +1,13 @@
 package com.damageddream.MedicalClinicProxy.dto;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
 @RequiredArgsConstructor
 @Builder
+@ToString
 @EqualsAndHashCode
 public class PatientDTO {
     private final String email;

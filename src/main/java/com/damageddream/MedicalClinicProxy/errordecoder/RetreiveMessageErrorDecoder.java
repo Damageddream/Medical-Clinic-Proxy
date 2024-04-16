@@ -6,8 +6,9 @@ import feign.FeignException;
 import feign.Response;
 import feign.RetryableException;
 import feign.codec.ErrorDecoder;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class RetreiveMessageErrorDecoder implements ErrorDecoder {
     private final ErrorDecoder errorDecoder = new Default();
     @Override
@@ -15,6 +16,7 @@ public class RetreiveMessageErrorDecoder implements ErrorDecoder {
         FeignException feignException = FeignException.errorStatus(methodKey, response);
         String errorBody = feignException.getMessage();
         String errorMessage = JsonMessageExtractor.extractMessage(errorBody);
+        log.error("exception intercepted from medical-clinic-client");
         if(response.status() >= 500){
             return new RetryableException(
                     response.status(),
