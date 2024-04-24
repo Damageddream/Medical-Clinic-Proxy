@@ -24,7 +24,7 @@ public class ApiServiceImpl implements ApiService {
     private final MedicalClinicClient medicalClinicClient;
     private final PatientDTOCacheRepository patientDTOCacheRepository;
     private final PatientDTOListCacheRepo patientDTOListCacheRepo;
-    // poprawić logi na taki jak ten na górze
+
     @Override
     public List<PatientDTO> findAllPatients(Optional<String> appointmentDate) {
         Optional<PatientDTOListCache> cachedPatients = patientDTOListCacheRepo
