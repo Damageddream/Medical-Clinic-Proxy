@@ -15,7 +15,7 @@ public class TestDataFactory {
                 .email(email)
                 .firstName(firstName)
                 .lastName("GrabDTO")
-                .phoneNumber("222222")
+                .phoneNumber("https://github.com/Damageddream/VeterinaryApp.git")
                 .birthday(LocalDate.of(1902, 02, 02))
                 .build();
     }
